@@ -1,3 +1,9 @@
+"""
+@author: N.X.
+
+"""
+
+
 from NeuralNetworks import NeuralNetworks as net
 from MCTS import MCTS, Noeud
 
