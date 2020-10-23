@@ -1,4 +1,13 @@
+"""
+@author : N.X.
+
+"""
+
+
 from NeuralNetwork import Network as net
+
+
+
 class NeuralNetworks:
     def __init__(self, nr_entrees, nr_d_actions):
         self.reseau_probas = net(optimizer = "Adam")
