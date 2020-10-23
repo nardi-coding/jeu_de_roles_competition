@@ -1,3 +1,10 @@
+"""
+@author: N.X.
+
+"""
+
+
+
 import numpy as np
 from NeuralNetwork import Network as net
 
