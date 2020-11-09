@@ -86,23 +86,6 @@ def draft(listesChoix):
 
 
 
-def initializer_actions():
-
-    """ obtenir la liste de toutes les actions """
-    global possible_actions
-    possible_actions = {}
-    s = 0
-    for i in range(1, 17):
-        for j in range(1, 17):
-            for k in range(3):
-                possible_actions[s] = (i, j, k)
-                s += 1
-
-    return possible_actions
-
-initializer_actions()
-
-
 def _pid_empl_relation(etatJeu):
 
     """ creer un dictionnaire qui associe le pid à l'emplacement """
