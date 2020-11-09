@@ -86,6 +86,23 @@ def draft(listesChoix):
 
 
 
+def initializer_actions():
+
+    """ obtenir la liste de toutes les actions """
+    global possible_actions
+    possible_actions = {}
+    s = 0
+    for i in range(1, 17):
+        for j in range(1, 17):
+            for k in range(3):
+                possible_actions[s] = (i, j, k)
+                s += 1
+
+    return possible_actions
+
+initializer_actions()
+
+
 def _pid_empl_relation(etatJeu):
 
     """ creer un dictionnaire qui associe le pid à l'emplacement """
@@ -285,7 +302,7 @@ def lance_jeu(etatInitial, done):
         if resultat != PRET_AU_COMBAT:
             v = _points(etatJeu)
             etat = _get_game_state_not_normalized(etatJeu)
-            noeud.enfants[(tuple(etat), noeud.action)] = (Noeud(noeud, memo, None), etatJeu)
+            noeud.enfants[(tuple(etat), memo)] = (Noeud(noeud, memo, None), etatJeu)
             _faire_un_back_up(noeud, v)
             return
 
@@ -406,17 +423,15 @@ def _get_training_examples():
         state, etatJeu = _get_etatJeu_from_enfants(root, action)
 
 
+
+
+        test = root
+        root = root.enfants[(tuple(state), action)][0]
+        root.parent = None
+        root.action = None
+        noeud = root
+
         save_variable("etatJeu", etatJeu)
-
-
-        try:
-            test = root
-            root = root.enfants[(tuple(state), action)][0]
-            root.parent = None
-            root.action = None
-            noeud = root
-        except:
-            break
 
 
 
@@ -566,10 +581,7 @@ def lance_jeu_ia(joueur1, joueur2):
 def choose_best_ia(old_network, trained_network):
     etatJeu = lance_jeu_ia(trained_network, old_network)
     p = _points(etatJeu)
-    if p == -1:
-        return 0
-    else:
-        return 1
+    return int(p != - 1)
 
 
 def choose():
